@@ -1,0 +1,44 @@
+package DayOne;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Depth {
+    static int temp = 0;
+    public static void main(String[] args) {
+        Depth depth = new Depth();
+        depth.partOne(depth.fileReader());
+        depth.partTwo(depth.fileReader());
+    }
+
+    public List<Integer> fileReader() {
+        try {
+            return Files.lines(Paths.get("src/DayOne/input.txt"))
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void partOne(List<Integer> list) {
+        int count = 0;
+        for (int i = 0; i < list.size()-1;i++) {
+            int temp = list.get(i+1);
+            if(list.get(i) < temp) count++;
+        }
+        System.out.println(count);
+    }
+
+    public void partTwo(List<Integer> list) {
+        int count = 0;
+        for (int i = 0; i < list.size()-3;i++) {
+            if (list.get(i+3) > list.get(i)) count++;
+        }
+        System.out.println(count);
+    }
+}
