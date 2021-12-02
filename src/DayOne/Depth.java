@@ -9,12 +9,11 @@ import java.util.stream.Collectors;
 
 public class Depth {
     public static void main(String[] args) {
-
         partOne(Objects.requireNonNull(fileReader()));
         partTwo(Objects.requireNonNull(fileReader()));
     }
 
-    public static List<Integer> fileReader() {
+    protected static List<Integer> fileReader() {
         try {
             return Files.lines(Paths.get("src/DayOne/input.txt"))
                     .map(Integer::parseInt)
@@ -25,7 +24,7 @@ public class Depth {
         return null;
     }
 
-    public static void partOne(List<Integer> list) {
+    protected static void partOne(List<Integer> list) {
         int count = 0;
         for (int i = 0; i < list.size()-1;i++) {
             int temp = list.get(i+1);
@@ -34,7 +33,7 @@ public class Depth {
         System.out.println("Puzzel 1: " + count);
     }
 
-    public static void partTwo(List<Integer> list) {
+    protected static void partTwo(List<Integer> list) {
         int count = 0;
         for (int i = 0; i < list.size()-3;i++) {
             if (list.get(i+3) > list.get(i)) count++;
