@@ -6,7 +6,7 @@ import java.util.*;
 
 public class DayFour {
     public static void main(String[] args) {
-        partOne(getBoards());
+        bingoSolver(getBoards());
     }
 
     private static List<String> getBoards() {
@@ -23,7 +23,7 @@ public class DayFour {
         return words;
     }
 
-    protected static void partOne(List<String> list) {
+    protected static void bingoSolver(List<String> list) {
         String[] strings = list.remove(0).split(",");
         List<Integer> bingodata = new ArrayList<>();
         for (String s : strings) {
@@ -58,7 +58,7 @@ public class DayFour {
                         if (bingo.getNum().equals(number)) {
                             bingo.setTaken();
                             if (checkForBingo(bingos)) {
-                                partOneHelper(bingos, number);
+                                solution(bingos, number);
                                 it.remove();
                             }
                         }
@@ -68,14 +68,14 @@ public class DayFour {
         }
     }
 
-    private static void partOneHelper(Bingo[][] bingos, Integer number) {
+    private static void solution(Bingo[][] bingos, Integer number) {
         int sum = 0;
         for (int r = 0; r < 5; r++) {
             for (int c = 0; c < 5; c++) {
                 if (!bingos[r][c].getTaken()) sum += bingos[r][c].getNum();
             }
         }
-        System.out.println(sum * number);
+        System.out.println(sum * number); // First output solution for part one, last for part two.
     }
 
     protected static boolean checkForBingo(Bingo[][] bingos) {
