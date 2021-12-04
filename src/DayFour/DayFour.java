@@ -2,21 +2,22 @@ package DayFour;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class DayFour {
-    public static void main(String[] args) throws FileNotFoundException {
-        List<String> list = getBoards(new Scanner(new File("src/DayFour/input.txt")));
-        partOne(list);
+    public static void main(String[] args) {
+        partOne(getBoards());
     }
 
-
-    private static List<String> getBoards(Scanner scanner) {
+    private static List<String> getBoards() {
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(new File("src/DayFour/input.txt"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         List<String> words = new ArrayList<>();
-        while (scanner.hasNext()) {
+        while (Objects.requireNonNull(scanner).hasNext()) {
             words.add(scanner.nextLine());
         }
         return words;
@@ -47,6 +48,7 @@ public class DayFour {
                 i = 0;
             }
         }
+
         for (Integer number : bingodata) {
             for (Iterator<Bingo[][]> it = boardList.iterator(); it.hasNext(); ) {
                 Bingo[][] bingos = it.next();
@@ -98,8 +100,8 @@ public class DayFour {
 }
 
 class Bingo {
-    protected Integer num;
-    protected boolean taken = false;
+    private Integer num;
+    private boolean taken = false;
 
     Bingo(Integer num) {
         this.num = num;
@@ -115,13 +117,5 @@ class Bingo {
 
     protected Integer getNum() {
         return num;
-    }
-
-    @Override
-    public String toString() {
-        return "Bingo{" +
-                "num=" + num +
-                ", taken=" + taken +
-                '}';
     }
 }
