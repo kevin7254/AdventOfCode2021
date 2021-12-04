@@ -56,7 +56,7 @@ public class DayFour {
                     for (int col = 0; col < 5; col++) {
                         Bingo bingo = bingos[row][col];
                         if (bingo.getNum().equals(number)) {
-                            bingo.setTaken(true);
+                            bingo.setTaken();
                             if (checkForBingo(bingos)) {
                                 partOneHelper(bingos, number);
                                 it.remove();
@@ -79,28 +79,21 @@ public class DayFour {
     }
 
     protected static boolean checkForBingo(Bingo[][] bingos) {
-        int count = 0;
+        int countRow = 0, countCol = 0;
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 5; col++) {
-                if (bingos[row][col].getTaken()) count++;
-                if (count == 5) return true;
+                if (bingos[row][col].getTaken()) countRow++;
+                if (bingos[col][row].getTaken()) countCol++;
+                if (countRow == 5 || countCol == 5) return true;
             }
-            count = 0;
-        }
-
-        for (int row = 0; row < 5; row++) {
-            for (int col = 0; col < 5; col++) {
-                if (bingos[col][row].getTaken()) count++;
-                if (count == 5) return true;
-            }
-            count = 0;
+            countRow = countCol = 0;
         }
         return false;
     }
 }
 
 class Bingo {
-    private Integer num;
+    private final Integer num;
     private boolean taken = false;
 
     Bingo(Integer num) {
@@ -111,8 +104,8 @@ class Bingo {
         return taken;
     }
 
-    protected void setTaken(boolean taken) {
-        this.taken = taken;
+    protected void setTaken() {
+        this.taken = true;
     }
 
     protected Integer getNum() {
