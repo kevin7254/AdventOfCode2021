@@ -24,8 +24,7 @@ public class DayFive {
 
     protected static List<String> fileReader() {
         try {
-            return Files.lines(Paths.get("src/DayFive/input.txt"))
-                    .collect(Collectors.toList());
+            return Files.lines(Paths.get("src/DayFive/input.txt")).collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,18 +39,11 @@ public class DayFive {
             int y2 = arr[3];
             if (x1 == x2 || y1 == y2) {
                 if (x1 == x2) {
-                    for (int i = Math.min(y1, y2); i <= Math.max(y1, y2); i++) {
-                        corrSystem[x1][i]++;
-                    }
+                    for (int i = Math.min(y1, y2); i <= Math.max(y1, y2); i++) corrSystem[x1][i]++;
+                } else {
+                    for (int i = Math.min(x1, x2); i <= Math.max(x1, x2); i++) corrSystem[i][y1]++;
                 }
-                if (y1 == y2) {
-                    for (int i = Math.min(x1, x2); i <= Math.max(x1, x2); i++) {
-                        corrSystem[i][y1]++;
-                    }
-                }
-            } else { //diagonal lines
-                partTwo(x1, x2, y1, y2);
-            }
+            } else partTwo(x1, x2, y1, y2); //diagonal lines
         }
         System.out.println(result());
     }
@@ -60,9 +52,7 @@ public class DayFive {
         int sum = 0;
         for (int i = 0; i < corrSystem.length; i++) {
             for (int j = 0; j < corrSystem.length; j++) {
-                if (corrSystem[i][j] > 1) {
-                    sum++;
-                }
+                if (corrSystem[i][j] > 1) sum++;
             }
         }
         return sum;
@@ -72,23 +62,15 @@ public class DayFive {
         int count = 0;
         if (x2 > x1) {
             if (y2 > y1) { // down right
-                for (int i = x1; i <= x2; i++) {
-                    corrSystem[i][y1 + count++]++;
-                }
-            } else if (y2 < y1) { // up right
-                for (int i = x1; i <= x2; i++) {
-                    corrSystem[i][y1 + count--]++;
-                }
+                for (int i = x1; i <= x2; i++) corrSystem[i][y1 + count++]++;
+            } else { // up right
+                for (int i = x1; i <= x2; i++) corrSystem[i][y1 + count--]++;
             }
-        } else if (x2 < x1) { // down left
+        } else { // down left
             if (y2 > y1) {
-                for (int i = x2; i <= x1; i++) {
-                    corrSystem[i][y2 + count--]++;
-                }
+                for (int i = x2; i <= x1; i++) corrSystem[i][y2 + count--]++;
             } else { //up left
-                for (int i = x2; i <= x1; i++) {
-                    corrSystem[i][y2 + count++]++;
-                }
+                for (int i = x2; i <= x1; i++) corrSystem[i][y2 + count++]++;
             }
         }
     }
