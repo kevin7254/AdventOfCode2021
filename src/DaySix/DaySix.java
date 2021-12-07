@@ -7,9 +7,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class DaySix {
-    private static final int[] testInput = {3, 4, 3, 1, 2};
-    private static final List<Integer> test = Arrays.stream(testInput).boxed().toList();
-    private static final List<Integer> testList = new ArrayList<>(test);
+    private static final List<Integer> testList = new ArrayList<>(Arrays
+            .stream(new int[]{3, 4, 3, 1, 2}).boxed().toList());
 
     public static void main(String[] args) {
         String[] strings = Objects.requireNonNull(fileReader()).get(0).split(",");
